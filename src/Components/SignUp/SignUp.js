@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { ToastContainer, toast } from 'react-toastify';
  import 'react-toastify/dist/ReactToastify.css';
 import contactImg from '../../images/01.png'
 import { Button } from 'react-bootstrap';
+import Fade from 'react-reveal/Fade';
+import google from "../../images/google-g-2015-logo-svgrepo-com.svg"
 const SignUp = () => {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('');
@@ -13,7 +15,7 @@ const SignUp = () => {
     const [confrimPassword,setConfrimPassword]=useState("")
     const [error,setError]=useState("")
    
-    
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
     const [
         createUserWithEmailAndPassword,
         user,
@@ -37,7 +39,9 @@ const SignUp = () => {
     const handeleConfrimPass=(e)=>{
       setConfrimPassword(e.target.value)
   }
-  
+  const handelGoogle=()=>{
+    signInWithGoogle()
+  }
    
     const handelRegister=async(e)=>{
         e.preventDefault()
@@ -60,6 +64,7 @@ const SignUp = () => {
           <div className="container mt-5">
             <div className="row shadow">
               <div className="col-md-8">
+                <Fade left>
               <form className='pt-5 mx-auto w-75' onSubmit={handelRegister}>
           <div class="form-group">
     <label for="exampleInputEmail1">Your Name</label>
@@ -89,11 +94,19 @@ const SignUp = () => {
  <div style={{height:"1px"}} className="bg-primary w-50"></div>
   <p className="mt-2 px-2">Or</p>
   <div style={{height:"1px"}} className="bg-primary w-50"></div>
+  <br />
+  
  </div>
+ <div className="w-50 mx-auto pt-3 me-5  pb-4">
+  <button onClick={()=>handelGoogle()}>Sign IN with <img  style={{width:"30px"}} src={google} alt="" /> </button>
+  </div>
 </form>
+</Fade>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 pt-5">
+                <Fade right>
                 <img className='img-fluid' src={contactImg} alt="" />
+                </Fade>
               </div>
             </div>
           </div>

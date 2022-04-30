@@ -10,6 +10,7 @@ import SignIn from './Components/SignUp/SignIn/SignIn';
 import RequireAuth from './Components/RequireAuth/RequireAuth';
 import Details from './Components/Inventory/Details/Details';
 import Manageitems from './Components/Inventory/Manageinventoy/Manageitems';
+import Footer from './Components/Shared/Header/Footer/Footer';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path='/signin' element={<SignIn />}></Route>
         <Route path='/additem' element={   <Additem />  }></Route>
       </Routes>
-      
+      <Footer />
     </div>
   );
 }

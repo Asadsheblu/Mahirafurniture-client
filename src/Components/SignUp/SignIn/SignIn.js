@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword,useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Button } from 'react-bootstrap';
 import loginImg from '../../../images/mobile-login-concept-illustration_114360-135.webp'
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,7 +18,7 @@ const SignIn = () => {
         loading,
         error,
       ] = useSignInWithEmailAndPassword(auth);
-      
+      const [signInWithGoogle] = useSignInWithGoogle(auth);
       console.log(user);
       const navigate=useNavigate()
       
@@ -66,6 +66,7 @@ const SignIn = () => {
   <Button  className="w-100 mt-3" variant="primary" type="submit">
     Login
   </Button>
+ 
 </form>
              </div>
              <div className="col-md-4">

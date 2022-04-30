@@ -11,6 +11,6 @@ const useInventory = () =>{
         .then(data => setInventory(data));
 
     }, []);
-    return [inventory]
+    return [inventory,setInventory]
 }
 export default useInventory
