@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Items from './Items';
 
 const Inventory = () => {
     const [inventory,setInventory]=useState([])
@@ -7,26 +9,22 @@ const Inventory = () => {
         .then(res=>res.json())
         .then(data=>setInventory(data))
     },[])
+    const navigate=useNavigate()
+    const manageItem=()=>{
+        navigate('/manage')
+    }
     return (
-        <div className="row row-cols-1 row-cols-md-3 g-4 mt-5  container-fluid">
-            {
-                inventory.slice(0,6).map(item=>
-                   
-  <div className="col p-3 shadow">
-    <div className="card text-center">
-      <img src={item.img} className="img-fluid" alt="..."/>
-      <div className="card-body">
-        <h5 className="card-title">Name:{item.name}</h5>
-        <h6 className="card-title">Price: {item.price}$</h6>
-        <h6 className="card-title">Quantity: {item.quantity}</h6>
-        <h6 className="card-title">SupplierName: {item.SupplierName}</h6>
-        <p className="card-text">{item.description}</p>
-        <button className='btn btn-danger'>Updated</button>
-      </div>
-    </div>
-  </div>
-   )
-}
+        <div>
+          <div className="row row-cols-1 row-cols-md-3 g-4 mt-5  container-fluid">
+        
+           {
+             inventory.slice(0,6).map(item=><Items key={item._id}item={item}></Items>)
+           }
+               
+          </div>
+            <div className='w-75 mx-auto text-center m-5'>
+            <button  onClick={manageItem}                                                                                             className='btn btn-info'>See Inventory</button>
+            </div>
   </div>
  
     );
