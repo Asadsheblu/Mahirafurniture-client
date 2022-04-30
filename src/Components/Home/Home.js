@@ -1,6 +1,7 @@
 import React from 'react';
 import  './Home.css'
 import Header from '../Shared/Header/Header';
+import Inventory from '../Inventory/Inventory';
 const Home = () => {
     return (
         <div>
@@ -14,9 +15,9 @@ const Home = () => {
             <button class="btn btn-danger mt-4 mb-3">Contact Us</button>
         </div>
         </div>
-        
+        <Inventory />
         </div>
-        
+     
     );
 };
 

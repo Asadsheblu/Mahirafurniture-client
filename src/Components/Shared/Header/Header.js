@@ -1,7 +1,14 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const Header = () => {
+  const [user]=useAuthState(auth)
+  const logout = () => {
+    signOut(auth);
+  };
     return (
         <div>
             <nav className="navbar fixed navbar-expand-lg navbar-light bg-light">
@@ -15,19 +22,41 @@ const Header = () => {
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/">Home</Link>
         </li>
-        <li className="nav-item">
-        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-        </li>
-        <li className="nav-item dropdown">
+        
+        {/* <li className="nav-item dropdown">
         <Link className="nav-link active" aria-current="page" to="/">Home</Link>
           
-        </li>
+        </li> */}
         <li className="nav-item">
-        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+        <Link className="nav-link active" aria-current="page" to="/blog">Blog</Link>
         </li>
-      </ul>
-     <button className='btn btn-info me-2'><Link className='text-decoration-none text-white'to="/signin">SingIn</Link></button>
-     <button className='btn btn-primary'><Link className='text-decoration-none text-white'to="/signup">SingUp</Link></button>
+      
+      {
+        user?<>
+
+<li className="nav-item">
+        <Link className="nav-link active" aria-current="page" to="/manage">ManageItem</Link>
+        </li>
+
+<li className="nav-item">
+        <Link className="nav-link active" aria-current="page" to="/additem">AddItem</Link>
+        </li>
+<li className="nav-item">
+        <Link className="nav-link active" aria-current="page" to="/myitem">MyItem</Link>
+        </li>
+        
+        <button onClick={logout} className='btn btn-info me-2'>SignOut</button>
+        
+        </>
+
+
+        
+       
+        :
+          <button className='btn btn-info me-2'><Link className='text-decoration-none text-white'to="/signin">SingIn</Link></button>
+      }
+     </ul>
+     <button className='btn btn-primary'><Link className='text-decoration-none text-white'to="/signup">SignUp</Link></button>
      
     </div>
   </div>
