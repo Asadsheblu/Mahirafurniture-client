@@ -46,11 +46,11 @@ const SignUp = () => {
     const handelRegister=async(e)=>{
         e.preventDefault()
         if(password!==confrimPassword){
-          setError("Your Two Password don't match..Please try To Again")
+          toast("Your Two Password don't match..Please try To Again")
           return
       }
       if(password.length<6){
-          setError('Please type password at least 6 character')
+          toast('Please type password at least 6 character')
       }
        await createUserWithEmailAndPassword
         (email,password)
@@ -98,7 +98,7 @@ const SignUp = () => {
   
  </div>
  <div className="w-50 mx-auto pt-3 me-5  pb-4">
-  <button onClick={()=>handelGoogle()}>Sign IN with <img  style={{width:"30px"}} src={google} alt="" /> </button>
+  <button onClick={()=>handelGoogle()} className="btn btn-warning">Registration with <img  style={{width:"30px"}} src={google} alt="" /> </button>
   </div>
 </form>
 </Fade>

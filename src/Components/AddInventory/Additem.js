@@ -1,17 +1,27 @@
+import { getAuth } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Link, useNavigate } from 'react-router-dom';
+import auth from '../../firebase.init';
 import Header from '../Shared/Header/Header';
 const Additem = () => {
+  const [user]=useAuthState(auth)
+  const navigate=useNavigate()
+      const handelManage=(e)=>{
+        e.preventDefault()
+        navigate('/manage')
+      }
     const handelNewitem=(e)=>{
 
  e.preventDefault()  
+ const email=e.target.email.value
  const name=e.target.name.value;
  const price=e.target.price.value;
  const quantity=e.target.quantity.value;
  const img=e.target.img.value;
  const SupplierName=e.target.SupplierName.value;
  const description=e.target.description.value
- const newItem={name,price,quantity,img,description,SupplierName}
+ const newItem={name,price,quantity,img,description,SupplierName,email}
     fetch(`https://gentle-temple-80074.herokuapp.com/inventory`, {
         method: 'POST', // or 'PUT'
         headers: {
@@ -28,6 +38,7 @@ const Additem = () => {
       .catch((error) => {
         console.error('Error:', error);
       });
+      
     }
     return (
         <div>
@@ -45,7 +56,14 @@ const Additem = () => {
 
                 <form onSubmit={handelNewitem} class="mx-1 mx-md-4">
 
-                 
+                <div class="d-flex flex-row align-items-center mb-4">
+                   
+                   <div class="form-outline flex-fill mb-0">
+              
+                    <input type="email" name="email" value={user?.email} id="" className='form-control' readOnly />
+                    
+                   </div>
+                 </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                    
@@ -106,7 +124,7 @@ const Additem = () => {
                  
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                   <input type="submit" className="btn btn-info p-3"  value='Add NewItem'/>
+                   <input  type="submit" className="btn btn-info p-3"  value='Add NewItem'/>
                   </div>
 
                 </form>

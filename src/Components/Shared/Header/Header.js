@@ -3,7 +3,7 @@ import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../../firebase.init';
-
+import profile from "../../../images/profile.png"
 const Header = () => {
   const [user]=useAuthState(auth)
   const logout = () => {
@@ -46,6 +46,7 @@ const Header = () => {
         </li>
         
         <button onClick={logout} className='btn btn-info me-2'>SignOut</button>
+        <h6><img style={{width:"40px"}} src={profile} alt="" />  {user?.displayName}</h6>
         
         </>
 

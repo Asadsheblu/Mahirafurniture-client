@@ -5,14 +5,17 @@ import Zoom from 'react-reveal/Zoom';
 
 const Details = () => {
     const {Inventoryid}=useParams()
-  
+
+
     const [inventory,setInventory]=useState({})
     useEffect(()=>{
         const url=`https://gentle-temple-80074.herokuapp.com/inventory/${Inventoryid}`
         fetch(url)
         .then(res=>res.json())
         .then(data=>setInventory(data))
+        
     },[])
+    
     return (
         <div className='m-5 pt-5'>
            <div className="card mb-3 mt-5 cards  container">
@@ -29,7 +32,7 @@ const Details = () => {
         <h6 className="card-title">Quantity: {inventory?.quantity}</h6>
         <h6 className="card-title">SupplierName: {inventory?.SupplierName}</h6>
         <p className="card-text">Item Description:{inventory?.description}</p>
-        <button className='btn btn-danger'>delivered</button>
+        <button  className='btn btn-danger'>delivered</button>
       </div>
     </div>
   </div>

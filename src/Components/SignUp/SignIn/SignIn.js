@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword,useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Button } from 'react-bootstrap';
+import axios from 'axios';
 import loginImg from '../../../images/mobile-login-concept-illustration_114360-135.webp'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 import { async } from '@firebase/util';
 import auth from '../../../firebase.init';
+import google from "./../../../images/google-g-2015-logo-svgrepo-com.svg"
+import useToken from '..//../../Hooks/useToken'
 import {useLocation,Navigate,} from "react-router-dom";
 const SignIn = () => {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
-    
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
     const [
         signInWithEmailAndPassword,
         user,
         loading,
         error,
       ] = useSignInWithEmailAndPassword(auth);
-      const [signInWithGoogle] = useSignInWithGoogle(auth);
+      const [token] = useToken(user);
       console.log(user);
       const navigate=useNavigate()
       
@@ -26,9 +29,11 @@ const SignIn = () => {
         
   const from = location.state?.from?.pathname || "/";
 
-      if(user){
-        navigate(from, { replace: true });
-      }
+  if (token) {
+    navigate(from, { replace: true });
+}
+
+
       if(error){
         toast(error?.message)
       }
@@ -38,12 +43,14 @@ const SignIn = () => {
     const handelPass=(e)=>{
         setPassword(e.target.value)
     }
+    const handelGoogle=()=>{
+      signInWithGoogle()
+    }
    
-    const handelLogin=(e)=>{
+    const handelLogin=async(e)=>{
         e.preventDefault()
-        signInWithEmailAndPassword(email,password)
+       await signInWithEmailAndPassword(email,password)
       
-        
         
     }
     return (
@@ -66,6 +73,16 @@ const SignIn = () => {
   <Button  className="w-100 mt-3" variant="primary" type="submit">
     Login
   </Button>
+  <div className='d-flex align-items-center'>
+ <div style={{height:"1px"}} className="bg-primary w-50"></div>
+  <p className="mt-2 px-2">Or</p>
+  <div style={{height:"1px"}} className="bg-primary w-50"></div>
+  <br />
+  
+ </div>
+ <div className="w-50 mx-auto pt-3 me-5  pb-4">
+  <button onClick={()=>handelGoogle()} className="btn btn-warning">SignIn with <img  style={{width:"30px"}} src={google} alt="" /> </button>
+  </div>
  
 </form>
              </div>
