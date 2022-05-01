@@ -10,7 +10,11 @@ const Myitem = () => {
     useEffect(()=>{
         const email = user?.email;
         
-        fetch(`https://gentle-temple-80074.herokuapp.com/myitem?email=${email}`)
+        fetch(`https://gentle-temple-80074.herokuapp.com/myItem?email=${email}`,{
+          headers:{
+            authorization:`Bearer ${localStorage.getItem("accessToken")}`
+          }
+        })
         .then(res=>res.json())
         .then(data=>setItems(data))
     },[user])

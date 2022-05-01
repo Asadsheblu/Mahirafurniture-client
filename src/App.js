@@ -14,6 +14,7 @@ import Footer from './Components/Shared/Header/Footer/Footer';
 import NotFound from './Components/NotFound/NotFound';
 import Blog from './Components/Blog/Blog';
 import Myitem from './Components/Inventory/Myitem';
+import Career from './Components/Career/Career';
 
 function App() {
   return (
@@ -21,11 +22,13 @@ function App() {
      <Header />
       <Routes>
         <Route path='/' element={<Home />}></Route>
+        <Route path="/career" element={<Career />}></Route>
         <Route path='/inventory/:Inventoryid' element={<RequireAuth>
           <Details />
         </RequireAuth>}></Route>
         <Route path='/manage' element={<RequireAuth><Manageitems /></RequireAuth>
           }></Route>
+          
           <Route path='/myitem' element={<Myitem />}></Route>
           <Route path='/blog' element={<Blog />}></Route>
         <Route path='/signup' element={<SignUp />}></Route>

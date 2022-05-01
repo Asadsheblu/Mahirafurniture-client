@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle,useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
+import Loading from "../../Shared/Header/Loading.js/Loading"
 import loginImg from '../../../images/mobile-login-concept-illustration_114360-135.webp'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
@@ -21,15 +22,20 @@ const SignIn = () => {
         loading,
         error,
       ] = useSignInWithEmailAndPassword(auth);
-      const [token] = useToken(user);
+      
       console.log(user);
-      const navigate=useNavigate()
+      const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(
+        auth
+      );
+        const navigate=useNavigate()
       
        const location = useLocation();
+      
+    
         
   const from = location.state?.from?.pathname || "/";
 
-  if (token) {
+  if (user) {
     navigate(from, { replace: true });
 }
 
@@ -50,9 +56,15 @@ const SignIn = () => {
     const handelLogin=async(e)=>{
         e.preventDefault()
        await signInWithEmailAndPassword(email,password)
+      const {data}=await axios.post('https://gentle-temple-80074.herokuapp.com/token',{email});
+      localStorage.setItem('accessToken',data.accessToken)
       
-        
     }
+    const handelResetPassword=async()=>{
+ 
+      await sendPasswordResetEmail(email);
+      toast('Sent email');
+     }
     return (
         <div className='mt-5'>
          <div className="container shadow pt-5">
@@ -69,10 +81,13 @@ const SignIn = () => {
     <input onBlur={handelPass} type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required/>
   </div>
   <p className="pt-2 fw-bold">Are You New Mahira Furniture Warehouse?Plaase....<Link className='text-decoration-none text-danger fw-bolder' to="/signUp">Registration</Link> </p>
-  <ToastContainer />
+  <h6>Forgot Your Password?<Button onClick={handelResetPassword} className="fs-6" variant="btn btn-link">Reset</Button></h6>
+  
+
   <Button  className="w-100 mt-3" variant="primary" type="submit">
     Login
   </Button>
+  <ToastContainer />
   <div className='d-flex align-items-center'>
  <div style={{height:"1px"}} className="bg-primary w-50"></div>
   <p className="mt-2 px-2">Or</p>

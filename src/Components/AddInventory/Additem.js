@@ -6,22 +6,20 @@ import auth from '../../firebase.init';
 import Header from '../Shared/Header/Header';
 const Additem = () => {
   const [user]=useAuthState(auth)
-  const navigate=useNavigate()
-      const handelManage=(e)=>{
-        e.preventDefault()
-        navigate('/manage')
-      }
+  
+      
     const handelNewitem=(e)=>{
 
  e.preventDefault()  
  const email=e.target.email.value
  const name=e.target.name.value;
  const price=e.target.price.value;
- const quantity=e.target.quantity.value;
+ const quantity=parseInt(e.target.quantity.value);
  const img=e.target.img.value;
  const SupplierName=e.target.SupplierName.value;
  const description=e.target.description.value
  const newItem={name,price,quantity,img,description,SupplierName,email}
+
     fetch(`https://gentle-temple-80074.herokuapp.com/inventory`, {
         method: 'POST', // or 'PUT'
         headers: {
@@ -69,7 +67,7 @@ const Additem = () => {
                    
                     <div class="form-outline flex-fill mb-0">
                
-                     <input type="text" name="name" id="" className='form-control' placeholder='Product Name' />
+                     <input type="text" name="name" id="" className='form-control' placeholder='Product Name' required/>
                      
                     </div>
                   </div>
@@ -78,7 +76,7 @@ const Additem = () => {
                     
                     <div class="flex-fill mb-0">
                     
-                    <input type="text" name="price" id="" className='form-control' placeholder='Product.price' />
+                    <input type="text" name="price" id="" className='form-control' placeholder='Product.price' required/>
                       
                     </div>
                   </div>
@@ -87,7 +85,7 @@ const Additem = () => {
                    
                     <div class="form-outline flex-fill mb-0">
                    
-                    <input type="number" name="quantity" id="" className='form-control'  placeholder='Product.quantity' />
+                    <input type="number" name="quantity" id="" className='form-control'  placeholder='Product.quantity' required/>
                      
                       
                     </div>
@@ -96,7 +94,7 @@ const Additem = () => {
                    
                     <div class="form-outline flex-fill mb-0">
                    
-                    <input type="text" name="img" id="" className='form-control' placeholder='Product.img' />
+                    <input type="text" name="img" id="" className='form-control' placeholder='Product.img' required/>
                      
                       
                     </div>
@@ -105,7 +103,7 @@ const Additem = () => {
                    
                     <div class="form-outline flex-fill mb-0">
                    
-                    <input type="text" name="SupplierName" id="" className='form-control'placeholder='Product.SupplierName' />
+                    <input type="text" name="SupplierName" id="" className='form-control'placeholder='Product.SupplierName' required/>
                      
                       
                     </div>
@@ -114,7 +112,7 @@ const Additem = () => {
                    
                     <div class="form-outline flex-fill mb-0">
                    
-                   <textarea name="description" id="" cols="30" rows="10" className='form-control' placeholder='Description'></textarea>
+                   <textarea name="description" id="" cols="30" rows="10" className='form-control' placeholder='Description'  required></textarea>
                      
                       
                     </div>
@@ -124,7 +122,7 @@ const Additem = () => {
                  
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                   <input  type="submit" className="btn btn-info p-3"  value='Add NewItem'/>
+                   <input   type="submit" className="btn btn-info p-3"  value='Add NewItem'/>
                   </div>
 
                 </form>

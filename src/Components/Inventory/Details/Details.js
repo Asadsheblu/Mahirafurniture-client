@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useInventory from "../../Hook/useInventory"
 import Zoom from 'react-reveal/Zoom';
+import axios from "axios"
 
 const Details = () => {
     const {Inventoryid}=useParams()
@@ -15,6 +16,12 @@ const Details = () => {
         .then(data=>setInventory(data))
         
     },[])
+    const handeldelivered=async(id)=>{
+        console.log(id);
+        const url=`http://localhost:5000/inventory/${id}`
+        const {data}=await axios.put(url)
+        console.log(data);
+    }
     
     return (
         <div className='m-5 pt-5'>
@@ -32,7 +39,7 @@ const Details = () => {
         <h6 className="card-title">Quantity: {inventory?.quantity}</h6>
         <h6 className="card-title">SupplierName: {inventory?.SupplierName}</h6>
         <p className="card-text">Item Description:{inventory?.description}</p>
-        <button  className='btn btn-danger'>delivered</button>
+        <button onClick={()=>handeldelivered(inventory?._id)}  className='btn btn-danger'>delivered</button>
       </div>
     </div>
   </div>

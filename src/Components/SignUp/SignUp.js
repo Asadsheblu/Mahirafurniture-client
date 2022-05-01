@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { ToastContainer, toast } from 'react-toastify';
@@ -24,6 +24,10 @@ const SignUp = () => {
       const [updateProfile] = useUpdateProfile(auth);
       const [sendEmailVerification] = useSendEmailVerification(  auth);
       console.log(user);
+      const navigate=useNavigate()
+      if(user){
+        navigate('/')
+      }
       if(error){
         toast(error?.message)
       }
