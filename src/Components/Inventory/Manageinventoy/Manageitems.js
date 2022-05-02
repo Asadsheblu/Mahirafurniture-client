@@ -6,7 +6,7 @@ import Loading from '../../Shared/Header/Loading.js/Loading';
 const Manageitems = () => {
     const [inventory,setinventory]=useState([])
     useEffect(()=>{
-        fetch('https://gentle-temple-80074.herokuapp.com/inventory')
+        fetch('https://gentle-temple-80074.herokuapp.com/inventory/')
         .then(res=>res.json())
         .then(data=>setinventory(data))
     },[])

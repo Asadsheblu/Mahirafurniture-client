@@ -2,22 +2,40 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import axios from "axios"
 import auth from '../../firebase.init';
+import { signOut } from 'firebase/auth';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const Myitem = () => {
     const [myItems,setItems]=useState([])
     const [user]=useAuthState(auth)
+    const navigate=useNavigate()
     
     useEffect(()=>{
-        const email = user?.email;
-        
-        fetch(`https://gentle-temple-80074.herokuapp.com/myItem?email=${email}`,{
-          headers:{
-            authorization:`Bearer ${localStorage.getItem("accessToken")}`
+      
+        const getmyItem = async () => {
+          const email = user?.email;
+          const url = `https://gentle-temple-80074.herokuapp.com/myitem?email=${email}`
+          try {
+              const { data } = await axios.get(url, {
+                  headers: {
+                      authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                  }
+              });
+              setItems(data);
+          } catch (error) {
+              toast(error.message);
+              
+        if (error.response.status === 401 || error.response.status === 403) {
+                  signOut(auth);
+                  navigate('/login')
+              }
           }
-        })
-        .then(res=>res.json())
-        .then(data=>setItems(data))
-    },[user])
+      }
+      getmyItem();
+    }, [user]);
+  
     const deleteHandel=(id)=>{
         const confrimDelete=window.confirm("Are You Sure Want To Delete This Item?")
         if(confrimDelete){

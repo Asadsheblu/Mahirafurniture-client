@@ -6,7 +6,7 @@ import Items from './Items';
 const Inventory = () => {
     const [inventory,setInventory]=useState([])
     useEffect(()=>{
-        fetch('https://gentle-temple-80074.herokuapp.com/inventory')
+        fetch('https://gentle-temple-80074.herokuapp.com/inventory/')
         .then(res=>res.json())
         .then(data=>setInventory(data))
     },[])

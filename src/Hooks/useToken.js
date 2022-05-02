@@ -1,21 +1,22 @@
-import axios from "axios";
-import { useEffect, useState } from "react"
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
 
 const useToken = user => {
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState();
+
     useEffect(() => {
         const getToken = async () => {
-          
-            const email = user?.email;
+            const email = user?.user.email;
             if (email) {
                 const { data } = await axios.post('https://gentle-temple-80074.herokuapp.com/token', { email });
-                setToken(data.accessToken);
-                localStorage.setItem('token', data.token);
+                setToken(data.accessToken)
+                localStorage.setItem('accessToken', data.accessToken);
             }
         }
         getToken();
     }, [user]);
-    return [token];
-}
 
+    return [token]
+}
 export default useToken;

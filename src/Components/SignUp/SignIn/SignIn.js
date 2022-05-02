@@ -56,8 +56,9 @@ const SignIn = () => {
     const handelLogin=async(e)=>{
         e.preventDefault()
        await signInWithEmailAndPassword(email,password)
-      const {data}=await axios.post('https://gentle-temple-80074.herokuapp.com/token',{email});
-      localStorage.setItem('accessToken',data.accessToken)
+       const { data } = await axios.post('https://gentle-temple-80074.herokuapp.com/token', { email });
+       localStorage.setItem('accessToken', data.accessToken);
+       navigate(from, { replace: true });
       
     }
     const handelResetPassword=async()=>{

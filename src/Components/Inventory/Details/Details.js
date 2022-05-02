@@ -6,7 +6,7 @@ import axios from "axios"
 
 const Details = () => {
     const {Inventoryid}=useParams()
-
+const [quantity,setQuantity]=useState('')
 
     const [inventory,setInventory]=useState({})
     useEffect(()=>{
@@ -18,9 +18,10 @@ const Details = () => {
     },[])
     const handeldelivered=async(id)=>{
         console.log(id);
-        const url=`http://localhost:5000/inventory/${id}`
+        const url=`https://gentle-temple-80074.herokuapp.com/inventory/${id}`
         const {data}=await axios.put(url)
         console.log(data);
+      
     }
     
     return (
@@ -39,7 +40,7 @@ const Details = () => {
         <h6 className="card-title">Quantity: {inventory?.quantity}</h6>
         <h6 className="card-title">SupplierName: {inventory?.SupplierName}</h6>
         <p className="card-text">Item Description:{inventory?.description}</p>
-        <button onClick={()=>handeldelivered(inventory?._id)}  className='btn btn-danger'>delivered</button>
+        <button onClick={()=>handeldelivered(inventory?.quantity-1)}  className='btn btn-danger'>delivered</button>
       </div>
     </div>
   </div>

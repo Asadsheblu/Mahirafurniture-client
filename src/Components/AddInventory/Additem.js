@@ -20,8 +20,8 @@ const Additem = () => {
  const description=e.target.description.value
  const newItem={name,price,quantity,img,description,SupplierName,email}
 
-    fetch(`https://gentle-temple-80074.herokuapp.com/inventory`, {
-        method: 'POST', // or 'PUT'
+    fetch(`http://localhost:5000/inventory`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
