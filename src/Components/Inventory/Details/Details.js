@@ -6,21 +6,63 @@ import axios from "axios"
 
 const Details = () => {
     const {Inventoryid}=useParams()
-const [quantity,setQuantity]=useState('')
+const [newQuantity,setNewQuantity]=useState(0)
 
     const [inventory,setInventory]=useState({})
     useEffect(()=>{
         const url=`https://gentle-temple-80074.herokuapp.com/inventory/${Inventoryid}`
         fetch(url)
         .then(res=>res.json())
-        .then(data=>setInventory(data))
+        .then(data=>{
+          setInventory(data);
+          setNewQuantity(data.quantity)
+          console.log(data.quantity);
+        })
         
-    },[])
-    const handeldelivered=async(id)=>{
-        console.log(id);
-        const url=`https://gentle-temple-80074.herokuapp.com/inventory/${id}`
-        const {data}=await axios.put(url)
-        console.log(data);
+        
+    },[Inventoryid])
+    const handeldelivered=async()=>{
+      const updatedQuantity = +newQuantity - 1;
+      console.log(updatedQuantity);
+      setNewQuantity(updatedQuantity)
+
+      const url = `https://gentle-temple-80074.herokuapp.com/inventory/${Inventoryid}`;
+      fetch(url, {
+          method: 'PUT',
+          headers: {
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify({ updatedQuantity })
+      })
+          .then(res => res.json())
+          .then(data => {
+              
+console.log('success', data);
+              alert('Delivered successfully!!!');
+          })
+      
+    }
+    const handeStock=async(e)=>{
+      e.preventDefault()
+      const quantity = e.target.stock.value;
+        const updatedQuantity = newQuantity + parseInt(quantity);
+        setNewQuantity(updatedQuantity);
+     
+
+      const url = `https://gentle-temple-80074.herokuapp.com/inventory/${Inventoryid}`;
+      fetch(url, {
+          method: 'PUT',
+          headers: {
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify({ updatedQuantity })
+      })
+          .then(res => res.json())
+          .then(data => {
+              
+console.log('success', data);
+              alert('New Stock updated successfully!!!');
+          })
       
     }
     
@@ -37,11 +79,15 @@ const [quantity,setQuantity]=useState('')
       <div className="card-body">
         <h5 className="card-title">Item Name:{inventory?.name}</h5>
         <h6 className="card-title">Price: {inventory?.price}$</h6>
-        <h6 className="card-title">Quantity: {inventory?.quantity}</h6>
+        <h6 className="card-title">Quantity: {newQuantity}</h6>
         <h6 className="card-title">SupplierName: {inventory?.SupplierName}</h6>
         <p className="card-text">Item Description:{inventory?.description}</p>
-        <button onClick={()=>handeldelivered(inventory?.quantity-1)}  className='btn btn-danger'>delivered</button>
+        <button onClick={handeldelivered}  className='btn btn-danger'>delivered</button>
       </div>
+      <form onSubmit={handeStock}>
+        <input type="number" name="stock" />
+        <input type="submit" value="STock" />
+      </form>
     </div>
   </div>
 </div>

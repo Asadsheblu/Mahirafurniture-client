@@ -20,7 +20,7 @@ const Additem = () => {
  const description=e.target.description.value
  const newItem={name,price,quantity,img,description,SupplierName,email}
 
-    fetch(`http://localhost:5000/inventory`, {
+    fetch(`https://gentle-temple-80074.herokuapp.com/inventory`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,6 +37,9 @@ const Additem = () => {
         console.error('Error:', error);
       });
       
+    }
+    const handelAdd=()=>{
+      alert("item-added")
     }
     return (
         <div>
@@ -122,7 +125,7 @@ const Additem = () => {
                  
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                   <input   type="submit" className="btn btn-info p-3"  value='Add NewItem'/>
+                   <input onClick={handelAdd}   type="submit" className="btn btn-info p-3"  value='Add NewItem'/>
                   </div>
 
                 </form>
