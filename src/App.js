@@ -15,6 +15,7 @@ import NotFound from './Components/NotFound/NotFound';
 import Blog from './Components/Blog/Blog';
 import Myitem from './Components/Inventory/Myitem';
 import Career from './Components/Career/Career';
+import MessengerCustomerChat from 'react-messenger-customer-chat/lib/MessengerCustomerChat';
 
 function App() {
   return (
@@ -36,6 +37,11 @@ function App() {
         <Route path='/additem' element={   <Additem />  }></Route>
         <Route path='*' element={<NotFound />}></Route>
       </Routes>
+      <MessengerCustomerChat
+    pageId="110957717361438"
+    appId="319626130268710"
+    htmlRef="<REF_STRING>"
+  />,
       <Footer />
     </div>
   );
