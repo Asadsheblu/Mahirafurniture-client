@@ -7,6 +7,7 @@ import auth from '../../firebase.init';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../Shared/Header/Loading.js/Loading';
 const Myitem = () => {
     const [myItems,setItems]=useState([])
     const [user]=useAuthState(auth)
@@ -27,15 +28,15 @@ const Myitem = () => {
           } catch (error) {
               toast(error.message);
               
-        if (error.response.status === 401 || error.response.status === 403) {
-                  signOut(auth);
-                  navigate('/signin')
-              }
+        // if (error.response.status === 401 || error.response.status === 403) {
+        //           signOut(auth);
+        //           navigate('/signin')
+        //       }
           }
       }
       getmyItem();
     }, [user]);
-  
+    
     const deleteHandel=(id)=>{
         const confrimDelete=window.confirm("Are You Sure Want To Delete This Item?")
         if(confrimDelete){

@@ -79,7 +79,7 @@ console.log('success', data);
       <div className="card-body">
         <h5 className="card-title">Item Name:{inventory?.name}</h5>
         <h6 className="card-title">Price: {inventory?.price}$</h6>
-        <h6 className="card-title">Quantity: {newQuantity}</h6>
+        <h6 className="card-title">Quantity: {newQuantity===0 ? "Out Of Stock" : newQuantity }</h6>
         <h6 className="card-title">SupplierName: {inventory?.SupplierName}</h6>
         <p className="card-text">Item Description:{inventory?.description}</p>
         <button onClick={handeldelivered}  className='btn btn-danger'>delivered</button>

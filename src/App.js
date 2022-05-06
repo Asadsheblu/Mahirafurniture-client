@@ -20,6 +20,11 @@ import MessengerCustomerChat from 'react-messenger-customer-chat/lib/MessengerCu
 function App() {
   return (
     <div>
+       <MessengerCustomerChat
+    pageId="110957717361438"
+    appId="319626130268710"
+   
+  />,
      <Header />
       <Routes>
         <Route path='/' element={<Home />}></Route>
@@ -37,11 +42,7 @@ function App() {
         <Route path='/additem' element={   <Additem />  }></Route>
         <Route path='*' element={<NotFound />}></Route>
       </Routes>
-      <MessengerCustomerChat
-    pageId="110957717361438"
-    appId="319626130268710"
-    htmlRef="<REF_STRING>"
-  />,
+     
       <Footer />
     </div>
   );
