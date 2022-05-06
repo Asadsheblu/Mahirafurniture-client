@@ -8,21 +8,21 @@ import contactImg from '../../images/01.png'
 import { Button } from 'react-bootstrap';
 import Fade from 'react-reveal/Fade';
 import google from "../../images/google-g-2015-logo-svgrepo-com.svg"
+import Loading from '../Shared/Header/Loading.js/Loading';
 const SignUp = () => {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('');
     const [displayName, setDisplayName] = useState('');
     const [confrimPassword,setConfrimPassword]=useState("")
-    const [error,setError]=useState("")
+    
    
     const [signInWithGoogle] = useSignInWithGoogle(auth);
     const [
         createUserWithEmailAndPassword,
-        user,
-       
-      ] = useCreateUserWithEmailAndPassword(auth);
+        user,loading,
+        error] = useCreateUserWithEmailAndPassword(auth);
       const [updateProfile] = useUpdateProfile(auth);
-      const [sendEmailVerification] = useSendEmailVerification(  auth);
+      const [sendEmailVerification] = useSendEmailVerification(auth);
       console.log(user);
       const navigate=useNavigate()
       if(user){
@@ -30,6 +30,9 @@ const SignUp = () => {
       }
       if(error){
         toast(error?.message)
+      }
+      if(loading){
+        return <Loading />
       }
     const handelName=(e)=>{
       setDisplayName(e.target.value)
@@ -62,6 +65,7 @@ const SignUp = () => {
       toast('sent verification email')
         await updateProfile({displayName})
         toast("Updated profile")
+        e.target.reset()
     }
     return (
         <div className='mt-5'>
@@ -88,7 +92,7 @@ const SignUp = () => {
     <label for="exampleInputPassword1">Confrim Password</label>
     <input onBlur={handeleConfrimPass} type="password" class="form-control" id="exampleInputPassword1" placeholder="Confrim Password" required/>
   </div>
-  <p>{error}</p>
+  
   <p>Already Have An Acoount?. <Link className="text-decoration-none" to='/signIn'>Login</Link></p>
   <Button  className="w-100 mt-3" variant="primary" type="submit">
     Registration

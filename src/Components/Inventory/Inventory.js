@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Loading from '../Shared/Header/Loading.js/Loading';
 import Items from './Items';
 
 
 const Inventory = () => {
     const [inventory,setInventory]=useState([])
+    const [loading,setLoading]=useState(false)
     useEffect(()=>{
         fetch('https://gentle-temple-80074.herokuapp.com/inventory/')
         .then(res=>res.json())
-        .then(data=>setInventory(data))
+        .then(data=>{
+          setLoading(true)
+          
+          setInventory(data)})
     },[])
     const navigate=useNavigate()
     const manageItem=()=>{
@@ -20,7 +25,10 @@ const Inventory = () => {
           <div className="row row-cols-1 row-cols-md-3 g-4  container-fluid">
         
            {
+             loading?
              inventory.slice(0,6).map(item=><Items key={item._id}item={item}></Items>)
+             :
+             <Loading />
            }
                
           </div>

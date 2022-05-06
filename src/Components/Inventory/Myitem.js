@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import Loading from '../Shared/Header/Loading.js/Loading';
 const Myitem = () => {
     const [myItems,setItems]=useState([])
+    const [loading,setLoading]=useState(false)
     const [user]=useAuthState(auth)
     const navigate=useNavigate()
     
@@ -24,6 +25,7 @@ const Myitem = () => {
                       authorization: `Bearer ${localStorage.getItem('accessToken')}`
                   }
               });
+              setLoading(true)
               setItems(data);
           } catch (error) {
               toast(error.message);
@@ -57,7 +59,7 @@ const Myitem = () => {
            
             
               <div className="row row-cols-1 row-cols-md-3 g-4">
-                  {
+                  {loading?
                       myItems.map(items=>
     <div key={items._id} className="col">
      
@@ -76,6 +78,8 @@ const Myitem = () => {
     </div>
     
     )
+    :
+    <Loading />
   }
   </div>
   

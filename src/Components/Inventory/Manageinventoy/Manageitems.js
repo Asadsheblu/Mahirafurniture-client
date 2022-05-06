@@ -5,10 +5,13 @@ import Flash from 'react-reveal/Flash';
 import Loading from '../../Shared/Header/Loading.js/Loading';
 const Manageitems = () => {
     const [inventory,setinventory]=useState([])
+    const [loading,setLoading]=useState(false)
     useEffect(()=>{
         fetch('https://gentle-temple-80074.herokuapp.com/inventory/')
         .then(res=>res.json())
-        .then(data=>setinventory(data))
+        .then(data=>{
+          setLoading(true)
+          setinventory(data)})
     },[])
     const deleteHandel=(id)=>{
       const confrimDelete=window.confirm("Are You Sure Want To Delete This Item?")
@@ -30,7 +33,7 @@ const Manageitems = () => {
          
           
             <div className="row row-cols-1 row-cols-md-3 g-4">
-                {
+                {loading?
                     inventory.map(items=>
   <div key={items._id} className="col">
     <Flash>
@@ -49,6 +52,8 @@ const Manageitems = () => {
   </div>
   
   )
+  :
+  <Loading />
 }
 </div>
 
