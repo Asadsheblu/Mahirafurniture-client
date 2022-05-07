@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useInventory from "../../Hook/useInventory"
 import Zoom from 'react-reveal/Zoom';
-import axios from "axios"
+import { ToastContainer, toast } from 'react-toastify';
 
 const Details = () => {
     const {Inventoryid}=useParams()
@@ -16,14 +15,14 @@ const [newQuantity,setNewQuantity]=useState(0)
         .then(data=>{
           setInventory(data);
           setNewQuantity(data.quantity)
-          console.log(data.quantity);
+         
         })
         
         
     },[Inventoryid])
     const handeldelivered=async()=>{
       const updatedQuantity = +newQuantity - 1;
-      console.log(updatedQuantity);
+     
       setNewQuantity(updatedQuantity)
 
       const url = `https://gentle-temple-80074.herokuapp.com/inventory/${Inventoryid}`;
@@ -38,7 +37,7 @@ const [newQuantity,setNewQuantity]=useState(0)
           .then(data => {
               
 console.log('success', data);
-              alert('Delivered successfully!!!');
+              toast('Delivered successfully!!!');
           })
       
     }
@@ -61,8 +60,9 @@ console.log('success', data);
           .then(data => {
               
 console.log('success', data);
-              alert('New Stock updated successfully!!!');
+              toast('New Stock updated successfully!!!');
           })
+          e.target.reset()
       
     }
     
@@ -85,8 +85,9 @@ console.log('success', data);
         <button onClick={handeldelivered}  className='btn btn-danger'>delivered</button>
       </div>
       <form onSubmit={handeStock}>
-        <input type="number" name="stock" />
-        <input type="submit" value="STock" />
+        <input type="number" className="rounded-pill ms-2" name="stock" />
+        <input type="submit" className="btn btn-info ms-3" value="STock" />
+        <ToastContainer />
       </form>
     </div>
   </div>

@@ -20,7 +20,7 @@ const ContactForm  = () => {
    
   </div>
   <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Your Order ID</label>
+    <label for="exampleInputPassword1" class="form-label">Your Delivery ID</label>
     <input type="number" class="form-control rounded" id="exampleInputPassword1"required />
   </div>
   <div class="mb-3">
