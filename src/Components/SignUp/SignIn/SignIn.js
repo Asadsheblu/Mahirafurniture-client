@@ -72,14 +72,14 @@ const SignIn = () => {
            <div className="row mt-2">
              <div className="col-md-8">
              <form className='pt-5 mx-auto w-75' onSubmit={handelLogin}>
-  <div class="form-group">
+  <div className="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" onBlur={handelEmail} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required/>
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <input type="email" onBlur={handelEmail} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required/>
+    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
-  <div class="form-group">
+  <div className="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input onBlur={handelPass} type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required/>
+    <input onBlur={handelPass} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" required/>
   </div>
   <p className="pt-2 fw-bold">Are You New Mahira Furniture Warehouse?Plaase....<Link className='text-decoration-none text-danger fw-bolder' to="/signUp">Registration</Link> </p>
   <h6>Forgot Your Password?<Button onClick={handelResetPassword} className="fs-6" variant="btn btn-link">Reset</Button></h6>
